@@ -9,7 +9,7 @@ export type Day = {
   day: number,
 }
 
-const TOTAL_NUMBER_OF_DAYS_PER_PAGE = 5 * 7;
+const TOTAL_NUMBER_OF_DAYS_PER_PAGE = 6 * 7;
 
 // defining it as an object with named properties it is harder to pass year for month and vice versa
 interface GetDaysForPageParams {

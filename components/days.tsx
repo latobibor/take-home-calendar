@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Day, getDaysForPage } from '../date-functions/date-functions';
+import { Day, getDaysForPage, JumpOperation } from '../date-functions/date-functions';
 
 
 interface DaysProps {
@@ -16,13 +16,15 @@ export function Days({year, month}: DaysProps) {
   const week3 = daysOfPage.slice(14, 21);
   const week4 = daysOfPage.slice(21, 28);
   const week5 = daysOfPage.slice(28, 35);
+  const week6 = daysOfPage.slice(35, 42);
 
-  return <View>
+  return <View style={styles.monthContainer}>
     <Week days={week1}/>
     <Week days={week2}/>
     <Week days={week3}/>
     <Week days={week4}/>
     <Week days={week5}/>
+    <Week days={week6}/>
   </View>
 }
 
@@ -33,11 +35,21 @@ interface WeekProps {
 function Week({days}: WeekProps) {
   return <View style={styles.weekContainer}>
     {days.map(day => (
-      <Text key={day.day + day.operation} style={styles.numberStyle}>{day.day}</Text>))}
+      <Text key={day.day + day.operation}
+            style={(day.operation === JumpOperation.Backward || day.operation === JumpOperation.Forward) ?
+              [styles.numberStyle, styles.darkStyle] : styles.numberStyle
+            }
+      >{day.day}
+      </Text>))}
   </View>
 }
 
 const styles = StyleSheet.create({
+  monthContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 15,
+  },
   weekContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -47,6 +59,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'white',
     width: 20,
+  },
+  darkStyle: {
+    color: '#414141'
   }
 });
 
