@@ -13,7 +13,7 @@ export function Calendar() {
       <MonthAndYear month={month} year={year}/>
       <TimeControls month={month} year={year} setYear={setYear} setMonth={setMonth}/>
     </View>
-    <Days/>
+    <Days month={month} year={year}/>
   </View>
 }
 
