@@ -22,12 +22,12 @@ export function Days({year, month}: DaysProps) {
   const week6 = daysOfPage.slice(35, 42);
 
   return <View style={styles.monthContainer}>
-    <Week days={week1} selectedDate={selectedDate}/>
-    <Week days={week2} selectedDate={selectedDate}/>
-    <Week days={week3} selectedDate={selectedDate}/>
-    <Week days={week4} selectedDate={selectedDate}/>
-    <Week days={week5} selectedDate={selectedDate}/>
-    <Week days={week6} selectedDate={selectedDate}/>
+    <Week days={week1} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+    <Week days={week2} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+    <Week days={week3} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+    <Week days={week4} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+    <Week days={week5} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+    <Week days={week6} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
   </View>
 }
 
@@ -40,8 +40,8 @@ interface WeekProps {
 }
 
 function Week({days, currentMonth, currentYear, selectedDate, setSelectedDate}: WeekProps) {
-  function onPress(selectedDay: number, selectedOperation: JumpOperation) {
-    console.log(`days > Week > currentDay`, selectedDate.getDate(), selectedOperation);
+  function onPress(selectedDay: Day) {
+    setSelectedDate(selectedDay.actualDate)
   }
 
   function getStylesForDay(actualDay: Day) {
@@ -50,14 +50,14 @@ function Week({days, currentMonth, currentYear, selectedDate, setSelectedDate}: 
   }
 
   function getStyleForDayContainer(actualDay: Day) {
-    const isSelected = actualDay.day === selectedDate.getDate() && actualDay.month === selectedDate.getMonth();
+    const isSelected = actualDay.day === selectedDate.getDate() && actualDay.actualDate.getMonth() === selectedDate.getMonth();
 
     return isSelected ? [styles.dayContainer, styles.selectedDay] : styles.dayContainer;
   }
 
   return <View style={styles.weekContainer}>
     {days.map(day => (
-      <Pressable key={day.day + day.operation} onPress={() => onPress(day.day, day.operation)}>
+      <Pressable key={day.day + day.operation} onPress={() => onPress(day)}>
         <View style={getStyleForDayContainer(day)}>
           <Text
             style={getStylesForDay(day)}

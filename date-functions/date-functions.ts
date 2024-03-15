@@ -5,9 +5,9 @@ export enum JumpOperation {
 }
 
 export type Day = {
-  operation: JumpOperation,
-  day: number,
-  month: number,
+  operation: JumpOperation;
+  day: number;
+  actualDate: Date;
 }
 
 const TOTAL_NUMBER_OF_DAYS_PER_PAGE = 6 * 7;
@@ -24,19 +24,19 @@ export function getDaysForPage({ year, month }: GetDaysForPageParams): Day[] {
   const arrayOfCurrentMonth = numberOfDaysToDayArray(getDaysInMonth(year, month)).map(day => ({
     operation: JumpOperation.Stay,
     day,
-    month
+    actualDate: new Date(year, month, day)
   }));
 
   const arrayOfPreviousMonth = numberOfDaysToDayArray(getDaysInMonth(year, month - 1)).slice(-offset).map(day => ({
     operation: JumpOperation.Backward,
     day,
-    month: month - 1
+    actualDate: new Date(year, month - 1, day)
   }));
 
   const arrayOfNextMonth = numberOfDaysToDayArray(getDaysInMonth(year, month + 1)).map(day => ({
     operation: JumpOperation.Forward,
     day,
-    month: month + 1
+    actualDate: new Date(year, month + 1, day)
   }));
 
   return [...arrayOfPreviousMonth, ...arrayOfCurrentMonth, ...arrayOfNextMonth].slice(0, TOTAL_NUMBER_OF_DAYS_PER_PAGE);
