@@ -1,7 +1,7 @@
-import {View, StyleSheet} from 'react-native';
-import {MonthAndYear} from './month-and-year';
-import {useState} from 'react';
-import {TimeControls} from './time-controls';
+import { View, StyleSheet } from 'react-native';
+import { MonthAndYear } from './month-and-year';
+import { useState } from 'react';
+import { TimeControls } from './time-controls';
 
 export function Calendar() {
   const [year, setYear] = useState((new Date()).getFullYear());
@@ -16,6 +16,7 @@ export function Calendar() {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    flexDirection: 'row',
     backgroundColor: '#131313',
     alignItems: 'center',
     justifyContent: 'center',
