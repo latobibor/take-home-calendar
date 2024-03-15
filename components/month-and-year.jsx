@@ -1,24 +1,28 @@
-import { View, Text } from "react-native";
+import {View, Text, StyleSheet} from 'react-native';
 
 // we do not need to recreate it on every day, so I pulled this up to be outside the component
 // months are 0-based
-const monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' }); 
+const {format: dateToMonth} = new Intl.DateTimeFormat('en', {month: 'long'});
 
-
-export function MonthAndYear({ month, year }) {
-  return <View>
-    <Text>{monthFormatter(new Date(year, month))}</Text>
-    <Text>{year}</Text>
+export function MonthAndYear({month, year}) {
+  return <View style={styles.container}>
+    <Text style={styles.month}>{dateToMonth(new Date(year, month))}</Text>
+    <Text style={styles.year}>{year}</Text>
   </View>
 }
 
 const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
   month: {
-    fontSize: 12,
-    color: '#000'
+    fontSize: 15,
+    color: '#FFF'
   },
   year: {
-    fontSize: 16,
-    color: '#000'
+    fontSize: 25,
+    color: '#FFF'
   }
 });

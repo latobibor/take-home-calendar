@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   header: {
-    fontSize: 20,
+    fontSize: 32,
     color: '#FFF',
   }
 });

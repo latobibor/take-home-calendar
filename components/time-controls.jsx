@@ -1,6 +1,6 @@
-import { Button, View } from "react-native";
+import {Button, View} from 'react-native';
 
-export function TimeControls({ setYear, setMonth }) {
+export function TimeControls({year, month, setYear, setMonth}) {
   function decrementMonth() {
 
   }
@@ -9,8 +9,8 @@ export function TimeControls({ setYear, setMonth }) {
 
   }
 
-   return <View>
-    <Button onPress={decrementMonth}>&gt;</Button>
-    <Button onPress={incrementMonth}>&lt;</Button>
-   </View>
+  return <View>
+    <Button title="&gt;" onPress={decrementMonth}/>
+    <Button title="&lt;" onPress={incrementMonth}/>
+  </View>
 }
