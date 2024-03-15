@@ -1,11 +1,5 @@
-export enum JumpOperation {
-  Stay,
-  Backward,
-  Forward,
-}
-
 export type Day = {
-  operation: JumpOperation;
+  isOutOfMonthDay: boolean;
   day: number;
   actualDate: Date;
 }
@@ -22,19 +16,19 @@ export function getDaysForPage({ year, month }: GetDaysForPageParams): Day[] {
   const offset = getOffsetOfFirstDay(year, month);
 
   const arrayOfCurrentMonth = numberOfDaysToDayArray(getDaysInMonth(year, month)).map(day => ({
-    operation: JumpOperation.Stay,
+    isOutOfMonthDay: false,
     day,
     actualDate: new Date(year, month, day)
   }));
 
   const arrayOfPreviousMonth = numberOfDaysToDayArray(getDaysInMonth(year, month - 1)).slice(-offset).map(day => ({
-    operation: JumpOperation.Backward,
+    isOutOfMonthDay: true,
     day,
     actualDate: new Date(year, month - 1, day)
   }));
 
   const arrayOfNextMonth = numberOfDaysToDayArray(getDaysInMonth(year, month + 1)).map(day => ({
-    operation: JumpOperation.Forward,
+    isOutOfMonthDay: true,
     day,
     actualDate: new Date(year, month + 1, day)
   }));

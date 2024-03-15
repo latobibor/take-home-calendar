@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { Day, getDaysForPage } from '../date-functions/date-functions';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Week } from './week';
 
 // Probably there is a smarter way for doing this, but under time crunch this is what I came up with.
@@ -34,22 +34,16 @@ export function Month({year, month, onDaySelection}: DaysProps) {
     setSelectedDate(day.actualDate);
   }
 
-  return <View style={styles.monthContainer}>
+  return <View>
     {
       poorMansPagination.map(({start, end}) =>
-        (<Week
-          key={`${start}_${end}`}
-          days={daysOfPage.slice(start,end)}
-          selectedDate={selectedDate}
-          onDaySelection={onCombinedDaySelection} />))
+        (<Fragment key={`${start}_${end}`}>
+          <Week
+            key={`${start}_${end}`}
+            days={daysOfPage.slice(start, end)}
+            selectedDate={selectedDate}
+            onDaySelection={onCombinedDaySelection}/>
+        </Fragment>))
     }
   </View>
 }
-
-const styles = StyleSheet.create({
-  monthContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 15,
-  }
-});

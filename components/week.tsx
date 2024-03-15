@@ -1,4 +1,4 @@
-import { Day, JumpOperation } from '../date-functions/date-functions';
+import { Day } from '../date-functions/date-functions';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 interface WeekProps {
@@ -9,7 +9,7 @@ interface WeekProps {
 
 export function Week({days, selectedDate, onDaySelection}: WeekProps) {
   function getStylesForDay(actualDay: Day) {
-    return (actualDay.operation === JumpOperation.Backward || actualDay.operation === JumpOperation.Forward) ?
+    return actualDay.isOutOfMonthDay ?
       [styles.defaultNumber, styles.darkNumber] : styles.defaultNumber;
   }
 
@@ -21,7 +21,7 @@ export function Week({days, selectedDate, onDaySelection}: WeekProps) {
 
   return <View style={styles.weekContainer}>
     {days.map(day => (
-      <Pressable key={day.day + day.operation} onPress={() => onDaySelection(day)}>
+      <Pressable key={day.actualDate.getDate()} onPress={() => onDaySelection(day)}>
         <View style={getStyleForDayContainer(day)}>
           <Text
             style={getStylesForDay(day)}
