@@ -2,6 +2,21 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Day, getDaysForPage, JumpOperation } from '../date-functions/date-functions';
 import { useState } from 'react';
 
+// Probably there is a smarter way for doing this, but under time crunch this is what I came up with.
+const poorMansPagination: Pagination[] = [
+  {start: 0, end: 7},
+  {start: 7, end: 14},
+  {start: 14, end: 21},
+  {start: 21, end: 28},
+  {start: 28, end: 35},
+  {start: 35, end: 42},
+]
+
+type Pagination = {
+  start: number;
+  end: number;
+}
+
 interface DaysProps {
   year: number;
   month: number;
@@ -13,26 +28,20 @@ export function Days({year, month, onDaySelection}: DaysProps) {
 
   const daysOfPage = getDaysForPage({year, month});
 
-  // This is not the most elegant, but I wanted to save time
-  const week1 = daysOfPage.slice(0, 7);
-  const week2 = daysOfPage.slice(7, 14);
-  const week3 = daysOfPage.slice(14, 21);
-  const week4 = daysOfPage.slice(21, 28);
-  const week5 = daysOfPage.slice(28, 35);
-  const week6 = daysOfPage.slice(35, 42);
-
   function onCombinedDaySelection(day: Day) {
     onDaySelection(day);
     setSelectedDate(day.actualDate);
   }
 
   return <View style={styles.monthContainer}>
-    <Week days={week1} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
-    <Week days={week2} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
-    <Week days={week3} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
-    <Week days={week4} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
-    <Week days={week5} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
-    <Week days={week6} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
+    {
+      poorMansPagination.map(({start, end}) =>
+        (<Week
+          key={`${start}_${end}`}
+          days={daysOfPage.slice(start,end)}
+          selectedDate={selectedDate}
+          onDaySelection={onCombinedDaySelection} />))
+    }
   </View>
 }
 
@@ -81,8 +90,8 @@ const styles = StyleSheet.create({
   dayContainer: {
     width: 30,
     height: 30,
-    // for some odd reason border radius glitching and sometimes becomes a square
-    borderRadius: 40,
+    // for some odd reason border radius is glitching and sometimes becomes a square
+    borderRadius: 15,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
