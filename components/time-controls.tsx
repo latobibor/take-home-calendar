@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     gap: 10,
-    marginRight: 15
+    marginRight: 10
   },
   buttonStyle: {
     backgroundColor: '#00000000',

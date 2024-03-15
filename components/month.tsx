@@ -34,16 +34,23 @@ export function Month({year, month, onDaySelection}: DaysProps) {
     setSelectedDate(day.actualDate);
   }
 
-  return <View>
+  return <View style={styles.container}>
     {
       poorMansPagination.map(({start, end}) =>
-        (<Fragment key={`${start}_${end}`}>
+        (
           <Week
             key={`${start}_${end}`}
             days={daysOfPage.slice(start, end)}
             selectedDate={selectedDate}
             onDaySelection={onCombinedDaySelection}/>
-        </Fragment>))
+        ))
     }
   </View>
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    gap: 5
+  }
+});
