@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Calendar } from './components/calendar';
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Calendar</Text>
       <Calendar />
-    </View>
+    </SafeAreaView>
   );
 }
 
