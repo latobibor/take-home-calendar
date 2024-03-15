@@ -1,10 +1,15 @@
 import {View, Text, StyleSheet} from 'react-native';
 
-// we do not need to recreate it on every day, so I pulled this up to be outside the component
-// months are 0-based
+// We do not need to recreate the formatter on every render, therefore this function can be separately defined and used.
+// Note that months are 0-based!
 const {format: dateToMonth} = new Intl.DateTimeFormat('en', {month: 'long'});
 
-export function MonthAndYear({month, year}) {
+interface MonthAndYearProps {
+  month: number;
+  year: number;
+}
+
+export function MonthAndYear({month, year}: MonthAndYearProps) {
   return <View style={styles.container}>
     <Text style={styles.month}>{dateToMonth(new Date(year, month))}</Text>
     <Text style={styles.year}>{year}</Text>

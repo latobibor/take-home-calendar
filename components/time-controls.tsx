@@ -1,6 +1,13 @@
 import {Button, View} from 'react-native';
 
-export function TimeControls({year, month, setYear, setMonth}) {
+interface TimeControlsProps {
+  year: number;
+  month: number;
+  setYear: (year: number) => void;
+  setMonth: (month: number) => void;
+}
+
+export function TimeControls({year, month, setYear, setMonth}: TimeControlsProps) {
   function decrementMonth() {
 
   }
