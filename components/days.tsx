@@ -35,11 +35,9 @@ interface WeekProps {
   days: Day[];
   selectedDate: Date;
   setSelectedDate: (date: Date) => void;
-  currentYear: number;
-  currentMonth: number;
 }
 
-function Week({days, currentMonth, currentYear, selectedDate, setSelectedDate}: WeekProps) {
+function Week({days, selectedDate, setSelectedDate}: WeekProps) {
   function onPress(selectedDay: Day) {
     setSelectedDate(selectedDay.actualDate)
   }
@@ -82,7 +80,8 @@ const styles = StyleSheet.create({
   dayContainer: {
     width: 30,
     height: 30,
-    borderRadius: 15,
+    // for some odd reason border radius glitching and sometimes becomes a square
+    borderRadius: 40,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
@@ -99,12 +98,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#41918f',
   }
 });
-
-
-// - get position of the day during the week
-// - get number of days in month
-// - get offset for days
-// - highlight selected day as a circle
-// - change month/year when out of bounds day is called
-// - reload the page on that (maybe install overmindjs?)
-
