@@ -1,49 +1,5 @@
+import { Day, JumpOperation } from '../date-functions/date-functions';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Day, getDaysForPage, JumpOperation } from '../date-functions/date-functions';
-import { useState } from 'react';
-
-// Probably there is a smarter way for doing this, but under time crunch this is what I came up with.
-const poorMansPagination: Pagination[] = [
-  {start: 0, end: 7},
-  {start: 7, end: 14},
-  {start: 14, end: 21},
-  {start: 21, end: 28},
-  {start: 28, end: 35},
-  {start: 35, end: 42},
-]
-
-type Pagination = {
-  start: number;
-  end: number;
-}
-
-interface DaysProps {
-  year: number;
-  month: number;
-  onDaySelection: (day: Day) => void;
-}
-
-export function Days({year, month, onDaySelection}: DaysProps) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
-  const daysOfPage = getDaysForPage({year, month});
-
-  function onCombinedDaySelection(day: Day) {
-    onDaySelection(day);
-    setSelectedDate(day.actualDate);
-  }
-
-  return <View style={styles.monthContainer}>
-    {
-      poorMansPagination.map(({start, end}) =>
-        (<Week
-          key={`${start}_${end}`}
-          days={daysOfPage.slice(start,end)}
-          selectedDate={selectedDate}
-          onDaySelection={onCombinedDaySelection} />))
-    }
-  </View>
-}
 
 interface WeekProps {
   days: Day[];
@@ -51,7 +7,7 @@ interface WeekProps {
   onDaySelection: (day: Day) => void;
 }
 
-function Week({days, selectedDate, onDaySelection}: WeekProps) {
+export function Week({days, selectedDate, onDaySelection}: WeekProps) {
   function getStylesForDay(actualDay: Day) {
     return (actualDay.operation === JumpOperation.Backward || actualDay.operation === JumpOperation.Forward) ?
       [styles.defaultNumber, styles.darkNumber] : styles.defaultNumber;
@@ -76,12 +32,8 @@ function Week({days, selectedDate, onDaySelection}: WeekProps) {
   </View>
 }
 
+
 const styles = StyleSheet.create({
-  monthContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 15,
-  },
   weekContainer: {
     display: 'flex',
     flexDirection: 'row',

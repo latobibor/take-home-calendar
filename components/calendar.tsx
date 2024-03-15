@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import { MonthAndYear } from './month-and-year';
 import { useState } from 'react';
 import { TimeControls } from './time-controls';
-import { Days } from './days';
+import { Month } from './month';
 import { Day } from '../date-functions/date-functions';
 
 export function Calendar() {
@@ -24,7 +24,7 @@ export function Calendar() {
       <MonthAndYear month={month} year={year}/>
       <TimeControls month={month} year={year} setYear={setYear} setMonth={setMonth}/>
     </View>
-    <Days month={month} year={year} onDaySelection={onDaySelected} />
+    <Month month={month} year={year} onDaySelection={onDaySelected} />
   </View>
 }
 
