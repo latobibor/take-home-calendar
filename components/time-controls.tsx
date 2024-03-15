@@ -3,6 +3,7 @@ import { Button, StyleSheet, View } from 'react-native';
 const JANUARY = 0;
 const DECEMBER = 11;
 const NUMBER_OF_MONTHS_IN_A_YEAR = 12;
+const TRANSPARENT = '#00000000'
 
 interface TimeControlsProps {
   year: number;
@@ -31,8 +32,8 @@ export function TimeControls({year, month, setYear, setMonth}: TimeControlsProps
   }
 
   return <View style={styles.container}>
-    <Button color="#00000000" title="&lt;" onPress={decrementMonth}/>
-    <Button color="#00000000" title="&gt;" onPress={incrementMonth}/>
+    <Button color={TRANSPARENT} title="&lt;" onPress={decrementMonth}/>
+    <Button color={TRANSPARENT} title="&gt;" onPress={incrementMonth}/>
   </View>
 }
 
