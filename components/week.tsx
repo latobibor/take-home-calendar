@@ -16,7 +16,7 @@ export function Week({days, selectedDate, onDaySelection}: WeekProps) {
   function getStyleForDayContainer(actualDay: Day) {
     const isSelected = actualDay.day === selectedDate.getDate() && actualDay.actualDate.getMonth() === selectedDate.getMonth();
 
-    return isSelected ? [styles.dayContainer, styles.selectedDay] : styles.dayContainer;
+    return isSelected ? [ styles.selectedDay, styles.dayContainer] : styles.dayContainer;
   }
 
   return <View style={styles.weekContainer}>
@@ -40,13 +40,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   dayContainer: {
-    width: 30,
-    height: 30,
-    // for some odd reason border radius is glitching and sometimes becomes a square
-    borderRadius: 15,
+    width: 40,
+    height: 40,
+
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   defaultNumber: {
     fontSize: 15,
@@ -58,5 +57,6 @@ const styles = StyleSheet.create({
   },
   selectedDay: {
     backgroundColor: '#41918f',
+    borderRadius: 20,
   }
 });
