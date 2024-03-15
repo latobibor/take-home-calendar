@@ -1,4 +1,4 @@
-import { Button, StyleSheet, View } from 'react-native';
+import { Text, Pressable, StyleSheet, View } from 'react-native';
 
 const JANUARY = 0;
 const DECEMBER = 11;
@@ -32,8 +32,8 @@ export function TimeControls({year, month, setYear, setMonth}: TimeControlsProps
   }
 
   return <View style={styles.container}>
-    <Button color={TRANSPARENT} title="&lt;" onPress={decrementMonth}/>
-    <Button color={TRANSPARENT} title="&gt;" onPress={incrementMonth}/>
+    <Pressable onPress={decrementMonth}><Text style={styles.buttonStyle}>&lt;</Text></Pressable>
+    <Pressable onPress={incrementMonth}><Text style={styles.buttonStyle}>&gt;</Text></Pressable>
   </View>
 }
 
@@ -42,9 +42,14 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
+    gap: 10,
+    marginRight: 10
   },
   buttonStyle: {
-    backgroundColor: '#00000000'
+    backgroundColor: '#00000000',
+    color: 'white',
+    fontFamily: 'Poppins-ExtraLight',
+    fontSize: 20
   }
 });
 

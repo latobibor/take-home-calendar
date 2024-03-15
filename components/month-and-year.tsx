@@ -24,10 +24,12 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   month: {
+    fontFamily: 'Poppins-Medium',
     fontSize: 15,
     color: '#FFF'
   },
   year: {
+    fontFamily: 'Poppins-Medium',
     fontSize: 25,
     color: '#FFF'
   }
