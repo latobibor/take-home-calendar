@@ -17,12 +17,18 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: '#131313',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+
+    width: '100%',
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+
     borderCurve: 'circular',
     borderRadius: 10,
     borderColor: '#3e3e3e',
-    borderWidth: 2
+    borderWidth: 2,
+
+    backgroundColor: '#131313'
   },
 });

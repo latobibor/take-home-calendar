@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'baseline',
+    gap: 5,
   },
   month: {
     fontSize: 15,
