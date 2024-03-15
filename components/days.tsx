@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   defaultNumber: {
     fontSize: 15,
     color: 'white',
-    fontWeight: 'bold'
+    fontFamily: 'Poppins-Medium',
   },
   darkNumber: {
     color: '#414141'
