@@ -2,13 +2,13 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Day, getDaysForPage, JumpOperation } from '../date-functions/date-functions';
 import { useState } from 'react';
 
-
 interface DaysProps {
   year: number;
   month: number;
+  onDaySelection: (day: Day) => void;
 }
 
-export function Days({year, month}: DaysProps) {
+export function Days({year, month, onDaySelection}: DaysProps) {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const daysOfPage = getDaysForPage({year, month});
@@ -21,27 +21,28 @@ export function Days({year, month}: DaysProps) {
   const week5 = daysOfPage.slice(28, 35);
   const week6 = daysOfPage.slice(35, 42);
 
+  function onCombinedDaySelection(day: Day) {
+    onDaySelection(day);
+    setSelectedDate(day.actualDate);
+  }
+
   return <View style={styles.monthContainer}>
-    <Week days={week1} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
-    <Week days={week2} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
-    <Week days={week3} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
-    <Week days={week4} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
-    <Week days={week5} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
-    <Week days={week6} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+    <Week days={week1} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
+    <Week days={week2} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
+    <Week days={week3} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
+    <Week days={week4} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
+    <Week days={week5} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
+    <Week days={week6} selectedDate={selectedDate} onDaySelection={onCombinedDaySelection}/>
   </View>
 }
 
 interface WeekProps {
   days: Day[];
   selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
+  onDaySelection: (day: Day) => void;
 }
 
-function Week({days, selectedDate, setSelectedDate}: WeekProps) {
-  function onPress(selectedDay: Day) {
-    setSelectedDate(selectedDay.actualDate)
-  }
-
+function Week({days, selectedDate, onDaySelection}: WeekProps) {
   function getStylesForDay(actualDay: Day) {
     return (actualDay.operation === JumpOperation.Backward || actualDay.operation === JumpOperation.Forward) ?
       [styles.defaultNumber, styles.darkNumber] : styles.defaultNumber;
@@ -55,7 +56,7 @@ function Week({days, selectedDate, setSelectedDate}: WeekProps) {
 
   return <View style={styles.weekContainer}>
     {days.map(day => (
-      <Pressable key={day.day + day.operation} onPress={() => onPress(day)}>
+      <Pressable key={day.day + day.operation} onPress={() => onDaySelection(day)}>
         <View style={getStyleForDayContainer(day)}>
           <Text
             style={getStylesForDay(day)}
