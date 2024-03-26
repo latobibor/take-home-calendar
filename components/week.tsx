@@ -4,10 +4,10 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 interface WeekProps {
   days: Day[];
   selectedDate: Date;
-  onDaySelection: (day: Day) => void;
+  onDaySelection: (date: Date) => void;
 }
 
-export function Week({days, selectedDate, onDaySelection}: WeekProps) {
+export function Week({ days, selectedDate, onDaySelection }: WeekProps) {
   function getStylesForDay(actualDay: Day) {
     return actualDay.isOutOfMonthDay ?
       [styles.defaultNumber, styles.darkNumber] : styles.defaultNumber;
@@ -16,12 +16,12 @@ export function Week({days, selectedDate, onDaySelection}: WeekProps) {
   function getStyleForDayContainer(actualDay: Day) {
     const isSelected = actualDay.day === selectedDate.getDate() && actualDay.actualDate.getMonth() === selectedDate.getMonth();
 
-    return isSelected ? [ styles.selectedDay, styles.dayContainer] : styles.dayContainer;
+    return isSelected ? [styles.selectedDay, styles.dayContainer] : styles.dayContainer;
   }
 
   return <View style={styles.weekContainer}>
     {days.map(day => (
-      <Pressable key={day.actualDate.getDate()} onPress={() => onDaySelection(day)}>
+      <Pressable key={day.actualDate.getDate()} onPress={() => onDaySelection(day.actualDate)}>
         <View style={getStyleForDayContainer(day)}>
           <Text
             style={getStylesForDay(day)}
@@ -31,7 +31,6 @@ export function Week({days, selectedDate, onDaySelection}: WeekProps) {
       </Pressable>))}
   </View>
 }
-
 
 const styles = StyleSheet.create({
   weekContainer: {

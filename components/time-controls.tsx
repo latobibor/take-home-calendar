@@ -1,34 +1,23 @@
 import { Text, Pressable, StyleSheet, View } from 'react-native';
 
-const JANUARY = 0;
-const DECEMBER = 11;
-const NUMBER_OF_MONTHS_IN_A_YEAR = 12;
-const TRANSPARENT = '#00000000'
+const TRANSPARENT_COLOR = '#00000000'
 
 interface TimeControlsProps {
-  year: number;
-  month: number;
-  setYear: (year: number) => void;
-  setMonth: (month: number) => void;
+  selectedDate: Date;
+  onMonthChange: (selectedDate: Date) => void;
 }
 
-export function TimeControls({year, month, setYear, setMonth}: TimeControlsProps) {
-  function decrementMonth() {
-    if (month === JANUARY) {
-      setMonth(DECEMBER);
-      setYear(year - 1);
-      return;
-    }
+export function TimeControls({ selectedDate, onMonthChange }: TimeControlsProps) {
+  const clonedMonth = new Date(selectedDate);
 
-    setMonth(month - 1);
+  function decrementMonth() {
+    clonedMonth.setMonth(selectedDate.getMonth() - 1);
+    onMonthChange(clonedMonth);
   }
 
   function incrementMonth() {
-    setMonth((month + 1) % NUMBER_OF_MONTHS_IN_A_YEAR);
-
-    if (month === DECEMBER) {
-      setYear(year + 1);
-    }
+    clonedMonth.setMonth(selectedDate.getMonth() + 1);
+    onMonthChange(clonedMonth);
   }
 
   return <View style={styles.container}>
@@ -46,7 +35,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   buttonStyle: {
-    backgroundColor: '#00000000',
+    backgroundColor: TRANSPARENT_COLOR,
     color: 'white',
     fontFamily: 'Poppins-ExtraLight',
     fontSize: 20

@@ -3,28 +3,19 @@ import { CurrentMonthAndYearLabel } from './current-month-and-year-label';
 import { useState } from 'react';
 import { TimeControls } from './time-controls';
 import { Month } from './month';
-import { Day } from '../date-functions/date-functions';
 
 export function Calendar() {
-  const [year, setYear] = useState((new Date()).getFullYear());
-  const [month, setMonth] = useState((new Date()).getMonth());
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  function onDaySelected(day: Day) {
-    if (day.actualDate.getFullYear() !== year) {
-      setYear(day.actualDate.getFullYear());
-    }
-
-    if (day.actualDate.getMonth() !== month) {
-      setMonth(day.actualDate.getMonth());
-    }
-  }
+  const year = selectedDate.getFullYear();
+  const month = selectedDate.getMonth();
 
   return <View style={styles.container}>
     <View style={styles.headerContainer}>
       <CurrentMonthAndYearLabel month={month} year={year}/>
-      <TimeControls month={month} year={year} setYear={setYear} setMonth={setMonth}/>
+      <TimeControls selectedDate={selectedDate} onMonthChange={setSelectedDate}/>
     </View>
-    <Month month={month} year={year} onDaySelection={onDaySelected} />
+    <Month selectedDate={selectedDate} onDaySelection={setSelectedDate} />
   </View>
 }
 
