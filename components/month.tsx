@@ -1,30 +1,17 @@
 import { StyleSheet, View } from 'react-native';
 import { Day, getDaysForPage } from '../date-functions/date-functions';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { Week } from './week';
 
-// Probably there is a smarter way for doing this, but under time crunch this is what I came up with.
-const poorMansPagination: Pagination[] = [
-  {start: 0, end: 7},
-  {start: 7, end: 14},
-  {start: 14, end: 21},
-  {start: 21, end: 28},
-  {start: 28, end: 35},
-  {start: 35, end: 42},
-]
+const VISIBLE_WEEKS = [0, 1, 2, 3, 4, 5, 6];
 
-type Pagination = {
-  start: number;
-  end: number;
-}
-
-interface DaysProps {
+interface MonthProps {
   year: number;
   month: number;
   onDaySelection: (day: Day) => void;
 }
 
-export function Month({year, month, onDaySelection}: DaysProps) {
+export function Month({year, month, onDaySelection}: MonthProps) {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const daysOfPage = getDaysForPage({year, month});
@@ -36,11 +23,13 @@ export function Month({year, month, onDaySelection}: DaysProps) {
 
   return <View style={styles.container}>
     {
-      poorMansPagination.map(({start, end}) =>
+      VISIBLE_WEEKS
+        .map(index => ({ startIndex: index * 7, endIndex: index * 7 + 7}))
+        .map(({startIndex, endIndex}) =>
         (
           <Week
-            key={`${start}_${end}`}
-            days={daysOfPage.slice(start, end)}
+            key={`${startIndex}_${endIndex}`}
+            days={daysOfPage.slice(startIndex, endIndex)}
             selectedDate={selectedDate}
             onDaySelection={onCombinedDaySelection}/>
         ))
