@@ -4,7 +4,9 @@ export type Day = {
   actualDate: Date;
 }
 
-const TOTAL_NUMBER_OF_DAYS_PER_PAGE = 6 * 7;
+const DAYS_IN_A_WEEK = 7;
+const TOTAL_WEEKS_PER_PAGE = 6;
+const TOTAL_NUMBER_OF_DAYS_PER_PAGE = TOTAL_WEEKS_PER_PAGE * DAYS_IN_A_WEEK;
 
 // defining it as an object with named properties it is harder to pass year for month and vice versa
 interface GetDaysForPageParams {
@@ -12,7 +14,7 @@ interface GetDaysForPageParams {
   month: number;
 }
 
-export function getDaysForPage({ year, month }: GetDaysForPageParams): Day[] {
+export function getWeeksOfPage({ year, month }: GetDaysForPageParams): Day[][] {
   const offset = getOffsetOfFirstDay(year, month);
 
   const arrayOfCurrentMonth = numberOfDaysToDayArray(getDaysInMonth(year, month)).map(day => ({
@@ -33,7 +35,15 @@ export function getDaysForPage({ year, month }: GetDaysForPageParams): Day[] {
     actualDate: new Date(year, month + 1, day)
   }));
 
-  return [...arrayOfPreviousMonth, ...arrayOfCurrentMonth, ...arrayOfNextMonth].slice(0, TOTAL_NUMBER_OF_DAYS_PER_PAGE);
+  const allDaysForPage = [...arrayOfPreviousMonth, ...arrayOfCurrentMonth, ...arrayOfNextMonth].slice(0, TOTAL_NUMBER_OF_DAYS_PER_PAGE);
+
+  const weeksForPage: Day[][] = [];
+
+  for (let i = 0; i < TOTAL_WEEKS_PER_PAGE; i++) {
+    weeksForPage.push(allDaysForPage.slice(i * DAYS_IN_A_WEEK, (i + 1) * DAYS_IN_A_WEEK));
+  }
+
+  return weeksForPage;
 }
 
 function getOffsetOfFirstDay(year: number, month: number) {
@@ -43,7 +53,7 @@ function getOffsetOfFirstDay(year: number, month: number) {
 }
 
 function numberOfDaysToDayArray(numberOfDays: number) {
-  return Array.from({length: numberOfDays}, (_, i) => i + 1)
+  return Array.from({ length: numberOfDays }, (_, i) => i + 1);
 }
 
 // modified stack overflow answer

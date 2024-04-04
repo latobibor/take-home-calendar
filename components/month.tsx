@@ -1,8 +1,7 @@
 import { StyleSheet, View } from 'react-native';
-import { getDaysForPage } from '../date-functions/date-functions';
+import { getWeeksOfPage } from '../date-functions/date-functions';
+import { DayOfMonth } from './day-of-month';
 import { Week } from './week';
-
-const VISIBLE_WEEKS = [0, 1, 2, 3, 4, 5, 6];
 
 interface MonthProps {
   selectedDate: Date;
@@ -10,27 +9,27 @@ interface MonthProps {
 }
 
 export function Month({ selectedDate, onDaySelection }: MonthProps) {
-  const daysOfPage = getDaysForPage({ year: selectedDate.getFullYear(), month: selectedDate.getMonth() });
+  const weeksOfPage = getWeeksOfPage({ year: selectedDate.getFullYear(), month: selectedDate.getMonth() });
 
   return <View style={styles.container}>
-    {
-      VISIBLE_WEEKS
-        .map(index => ({ startIndex: index * 7, endIndex: index * 7 + 7 }))
-        .map(({ startIndex, endIndex }) =>
-          (
-            <Week
-              key={`${startIndex}_${endIndex}`}
-              days={daysOfPage.slice(startIndex, endIndex)}
-              selectedDate={selectedDate}
-              onDaySelection={onDaySelection}/>
-          ))
-    }
-  </View>
+    {weeksOfPage.map((week, weekIndex) =>
+      <Week key={`${week}_${weekIndex}`}>
+        {week.map((day, dayIndex) => (
+          <DayOfMonth
+            key={`${day.day}_${dayIndex}`}
+            day={day}
+            selectedDate={selectedDate}
+            onDaySelection={onDaySelection}
+          />))
+        }
+      </Week>)}
+  </View>;
 }
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    gap: 5
+    flexDirection: 'column',
+    gap: 5,
   }
 });
