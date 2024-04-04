@@ -8,7 +8,7 @@ interface WeekProps {
 export function Week({ children }: WeekProps) {
   return <View style={styles.container}>
     {children}
-  </View>
+  </View>;
 }
 
 const styles = StyleSheet.create({
@@ -16,5 +16,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     gap: 5,
+    // height: 40,
   }
 });

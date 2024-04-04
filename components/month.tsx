@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
+    gap: 10,
   }
 });

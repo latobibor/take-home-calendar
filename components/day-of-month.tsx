@@ -33,8 +33,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // TODO: calculate it with width of container / 7 when there's internet connection
-    flexBasis: 45,
+    flexBasis: 40,
+    width: 40,
+    height: 40,
   },
   defaultNumber: {
     fontSize: 15,
@@ -46,6 +47,6 @@ const styles = StyleSheet.create({
   },
   selectedDay: {
     backgroundColor: '#41918f',
-    borderRadius: 15,
+    borderRadius: 20,
   }
 });
