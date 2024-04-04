@@ -1,8 +1,7 @@
 import { View, StyleSheet } from 'react-native';
-import { CurrentMonthAndYearLabel } from './current-month-and-year-label';
 import { useState } from 'react';
-import { TimeControls } from './time-controls';
 import { Month } from './month';
+import { Header } from '../header/header';
 
 export function Calendar() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -11,12 +10,9 @@ export function Calendar() {
   const month = selectedDate.getMonth();
 
   return <View style={styles.container}>
-    <View style={styles.headerContainer}>
-      <CurrentMonthAndYearLabel month={month} year={year}/>
-      <TimeControls selectedDate={selectedDate} onMonthChange={setSelectedDate}/>
-    </View>
-    <Month selectedDate={selectedDate} onDaySelection={setSelectedDate} />
-  </View>
+    <Header year={year} month={month} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+    <Month selectedDate={selectedDate} onDaySelection={setSelectedDate}/>
+  </View>;
 }
 
 const styles = StyleSheet.create({
@@ -35,12 +31,5 @@ const styles = StyleSheet.create({
 
     paddingHorizontal: 10,
     paddingVertical: 8,
-  },
-  headerContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginHorizontal: 4
   },
 });

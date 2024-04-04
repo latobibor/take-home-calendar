@@ -1,5 +1,5 @@
-import { Day } from '../date-functions/date-functions';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Day } from '../../date-functions/date-functions';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
 interface DayOfMonthProps {
   day: Day;

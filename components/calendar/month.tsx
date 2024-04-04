@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { getWeeksOfPage } from '../date-functions/date-functions';
+import { getWeeksOfPage } from '../../date-functions/date-functions';
 import { DayOfMonth } from './day-of-month';
 import { Week } from './week';
 

@@ -1,6 +1,6 @@
-import { SafeAreaView, StyleSheet, Text, ActivityIndicator  } from 'react-native';
-import { Calendar } from './components/calendar';
-import { useDesignFonts } from './components/hooks/use-design-fonts';
+import { SafeAreaView, StyleSheet, Text, ActivityIndicator } from 'react-native';
+import { Calendar } from './components/calendar/calendar';
+import { useDesignFonts } from './hooks/use-design-fonts';
 
 // TODO: add overmind or use Context API for practice
 
@@ -8,14 +8,14 @@ export default function App() {
   const { areFontsBeingLoaded } = useDesignFonts();
 
   if (areFontsBeingLoaded) {
-    return <ActivityIndicator />
+    return <ActivityIndicator/>;
   }
 
   return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.header}>Calendar</Text>
-        <Calendar/>
-      </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>Calendar</Text>
+      <Calendar/>
+    </SafeAreaView>
   );
 }
 

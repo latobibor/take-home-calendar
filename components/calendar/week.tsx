@@ -16,6 +16,5 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     gap: 5,
-    // height: 40,
   }
 });

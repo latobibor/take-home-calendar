@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 
-// We do not need to recreate the formatter on every render, therefore this function can be separately defined and used.
+// To get the names of months I use the built-in Intl API. We do not need to recreate the formatter on
+// every render, therefore the formatter function can be separately defined.
 // Note that months are 0-based!
 const { format: dateToMonth } = new Intl.DateTimeFormat('en', { month: 'long' });
 
@@ -13,7 +14,7 @@ export function CurrentMonthAndYearLabel({ month, year }: MonthAndYearProps) {
   return <View style={styles.container}>
     <Text style={styles.month}>{dateToMonth(new Date(year, month))}</Text>
     <Text style={styles.year}>{year}</Text>
-  </View>
+  </View>;
 }
 
 const styles = StyleSheet.create({
