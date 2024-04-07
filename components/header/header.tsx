@@ -1,19 +1,12 @@
-import { StyleSheet, View } from 'react-native';
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { TimeControls } from './time-controls';
 import { CurrentMonthAndYearLabel } from './current-month-and-year-label';
 
-interface HeaderProps {
-  year: number;
-  month: number;
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
-}
-
-export function Header({ selectedDate, setSelectedDate, year, month }: HeaderProps) {
+export function Header() {
   return <View style={styles.headerContainer}>
-    <CurrentMonthAndYearLabel month={month} year={year}/>
-    <TimeControls selectedDate={selectedDate} onMonthChange={setSelectedDate}></TimeControls>
+    <CurrentMonthAndYearLabel />
+    <TimeControls />
   </View>;
 }
 

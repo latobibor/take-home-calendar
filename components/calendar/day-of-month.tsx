@@ -1,13 +1,16 @@
 import { Day } from '../../date-functions/date-functions';
 import { Pressable, StyleSheet, Text } from 'react-native';
+import { useContext } from 'react';
+import { CalendarContext, CalendarDispatchContext } from '../../reducers/calendar-reducer';
 
 interface DayOfMonthProps {
   day: Day;
-  selectedDate: Date;
-  onDaySelection: (date: Date) => void;
 }
 
-export function DayOfMonth({ day, selectedDate, onDaySelection }: DayOfMonthProps) {
+export function DayOfMonth({ day }: DayOfMonthProps) {
+  const { selectedDate } = useContext(CalendarContext);
+  const dispatch = useContext(CalendarDispatchContext);
+
   function getStylesForDay(actualDay: Day) {
     return actualDay.isOutOfMonthDay ?
       [styles.defaultNumber, styles.darkNumber] : styles.defaultNumber;
@@ -17,6 +20,13 @@ export function DayOfMonth({ day, selectedDate, onDaySelection }: DayOfMonthProp
     const isSelected = actualDay.day === selectedDate.getDate() && actualDay.actualDate.getMonth() === selectedDate.getMonth();
 
     return isSelected ? [styles.selectedDay, styles.dayContainer] : styles.dayContainer;
+  }
+
+  function onDaySelection(date: Date) {
+    dispatch({
+      type: 'date_selected',
+      value: date,
+    });
   }
 
   return <Pressable style={getStyleForDayContainer(day)} key={day.actualDate.getDate()}

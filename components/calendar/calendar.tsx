@@ -1,18 +1,20 @@
 import { View, StyleSheet } from 'react-native';
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { Month } from './month';
 import { Header } from '../header/header';
+import { CalendarContext, CalendarDispatchContext, calendarReducer } from '../../reducers/calendar-reducer';
 
 export function Calendar() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, dispatch] = useReducer(calendarReducer, { selectedDate: new Date() });
 
-  const year = selectedDate.getFullYear();
-  const month = selectedDate.getMonth();
-
-  return <View style={styles.container}>
-    <Header year={year} month={month} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
-    <Month selectedDate={selectedDate} onDaySelection={setSelectedDate}/>
-  </View>;
+  return <CalendarContext.Provider value={selectedDate}>
+    <CalendarDispatchContext.Provider value={dispatch}>
+      <View style={styles.container}>
+        <Header/>
+        <Month/>
+      </View>
+    </CalendarDispatchContext.Provider>
+  </CalendarContext.Provider>;
 }
 
 const styles = StyleSheet.create({

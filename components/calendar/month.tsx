@@ -2,13 +2,11 @@ import { StyleSheet, View } from 'react-native';
 import { getWeeksOfPage } from '../../date-functions/date-functions';
 import { DayOfMonth } from './day-of-month';
 import { Week } from './week';
+import { useContext } from 'react';
+import { CalendarContext } from '../../reducers/calendar-reducer';
 
-interface MonthProps {
-  selectedDate: Date;
-  onDaySelection: (date: Date) => void;
-}
-
-export function Month({ selectedDate, onDaySelection }: MonthProps) {
+export function Month() {
+  const { selectedDate } = useContext(CalendarContext);
   const weeksOfPage = getWeeksOfPage({ year: selectedDate.getFullYear(), month: selectedDate.getMonth() });
 
   return <View style={styles.container}>
@@ -18,8 +16,6 @@ export function Month({ selectedDate, onDaySelection }: MonthProps) {
           <DayOfMonth
             key={`${day.day}_${dayIndex}`}
             day={day}
-            selectedDate={selectedDate}
-            onDaySelection={onDaySelection}
           />))
         }
       </Week>)}

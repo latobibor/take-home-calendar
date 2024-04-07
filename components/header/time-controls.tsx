@@ -1,14 +1,21 @@
 import { Text, Pressable, StyleSheet, View } from 'react-native';
+import { useContext } from 'react';
+import { CalendarContext, CalendarDispatchContext } from '../../reducers/calendar-reducer';
 
-const TRANSPARENT_COLOR = '#00000000'
+const TRANSPARENT_COLOR = '#00000000';
 
-interface TimeControlsProps {
-  selectedDate: Date;
-  onMonthChange: (selectedDate: Date) => void;
-}
+export function TimeControls() {
+  const { selectedDate } = useContext(CalendarContext);
+  const dispatch = useContext(CalendarDispatchContext);
 
-export function TimeControls({ selectedDate, onMonthChange }: TimeControlsProps) {
   const clonedMonth = new Date(selectedDate);
+
+  function onMonthChange(value: Date) {
+    dispatch({
+      type: 'date_selected',
+      value,
+    });
+  }
 
   function decrementMonth() {
     clonedMonth.setMonth(selectedDate.getMonth() - 1);
@@ -23,7 +30,7 @@ export function TimeControls({ selectedDate, onMonthChange }: TimeControlsProps)
   return <View style={styles.container}>
     <Pressable onPress={decrementMonth}><Text style={styles.buttonStyle}>&lt;</Text></Pressable>
     <Pressable onPress={incrementMonth}><Text style={styles.buttonStyle}>&gt;</Text></Pressable>
-  </View>
+  </View>;
 }
 
 
