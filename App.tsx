@@ -1,22 +1,20 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { Calendar } from './components/calendar';
-import { useFonts } from 'expo-font';
+import { SafeAreaView, StyleSheet, Text, ActivityIndicator } from 'react-native';
+import { Calendar } from './components/calendar/calendar';
+import { useDesignFonts } from './hooks/use-design-fonts';
+
+// TODO: add overmind or use Context API for practice
 
 export default function App() {
-  const [fontsLoaded, fontError] = useFonts({
-    'Poppins-Medium': require('./assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-SemiBold': require('./assets/fonts/Poppins-SemiBold.ttf'),
-    'Poppins-ExtraLight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
-  });
+  const { areFontsBeingLoaded } = useDesignFonts();
 
-  if (!fontsLoaded && !fontError) {
-    return null;
+  if (areFontsBeingLoaded) {
+    return <ActivityIndicator/>;
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Calendar</Text>
-      <Calendar />
+      <Calendar/>
     </SafeAreaView>
   );
 }
