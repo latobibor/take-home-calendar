@@ -38,5 +38,14 @@ describe('date-functions', () => {
       expect(afterCurrentMonthDay.day).toEqual(8);
       expect(afterCurrentMonthDay.isOutOfMonthDay).toBeTruthy();
     });
+
+
+    it('cannot have more than 6 "out of month" days in the first week', () => {
+      const weeks = getWeeksOfPage({ year: 2024, month: 8 });
+
+      const firstWeek = weeks[0];
+
+      expect(firstWeek.filter(({isOutOfMonthDay}) => isOutOfMonthDay).length).toBeLessThan(7);
+    });
   });
 });

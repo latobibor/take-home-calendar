@@ -23,11 +23,11 @@ export function getWeeksOfPage({ year, month }: GetDaysForPageParams): Day[][] {
     actualDate: new Date(year, month, day)
   }));
 
-  const arrayOfPreviousMonth = numberOfDaysToDayArray(getDaysInMonth(year, month - 1)).slice(-offset).map(day => ({
+  const arrayOfPreviousMonth = offset > 0 ? numberOfDaysToDayArray(getDaysInMonth(year, month - 1)).slice(-offset).map(day => ({
     isOutOfMonthDay: true,
     day,
     actualDate: new Date(year, month - 1, day)
-  }));
+  })) : [];
 
   const arrayOfNextMonth = numberOfDaysToDayArray(getDaysInMonth(year, month + 1)).map(day => ({
     isOutOfMonthDay: true,
