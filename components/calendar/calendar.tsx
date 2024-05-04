@@ -22,8 +22,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 10,
 
-    width: '100%',
-
     borderCurve: 'circular',
     borderRadius: 10,
     borderColor: '#3e3e3e',
