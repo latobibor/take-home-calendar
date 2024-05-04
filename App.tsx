@@ -1,8 +1,6 @@
-import { SafeAreaView, StyleSheet, Text, ActivityIndicator } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, ActivityIndicator, View } from 'react-native';
 import { Calendar } from './components/calendar/calendar';
 import { useDesignFonts } from './hooks/use-design-fonts';
-
-// TODO: add overmind or use Context API for practice
 
 export default function App() {
   const { areFontsBeingLoaded } = useDesignFonts();
@@ -13,8 +11,10 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Calendar</Text>
-      <Calendar/>
+      <View style={styles.insideContainer}>
+        <Text style={styles.header}>Calendar</Text>
+        <Calendar/>
+      </View>
     </SafeAreaView>
   );
 }
@@ -22,14 +22,15 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#030303',
-    alignItems: 'flex-start',
+    backgroundColor: '#030303'
+  },
+  insideContainer: {
+    width: '100%',
+    flex: 1,
+    gap: 16,
     justifyContent: 'center',
-    // this weird number comes from Figma, where the "Left" value was exactly 23.5px
-    padding: 23.5,
-
-    // the exact value was not available in Figma - normally I would ask the designer about it
-    gap: 15
+    alignItems: 'stretch',
+    padding: 16,
   },
   header: {
     fontSize: 32,
